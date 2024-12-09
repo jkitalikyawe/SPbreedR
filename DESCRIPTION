@@ -1,0 +1,17 @@
+Package: SPbreedR
+Type: Package
+Title: A package for routine management of sweet potato breeding datasets
+Version: 1.0
+Date: 2024-11-28
+Author: Joseph Kitalikyawe
+Maintainer: Joseph Kitalikyawe <jkitalikyawe@gmail.com>
+Description: A package for routine management of sweet potato breeding datasets.
+License: GPL-3
+LazyData: true
+Imports: stringr
+RoxygenNote: 7.3.2
+Suggests: testthat
+BuildVignettes: true
+Encoding: UTF-8
+Depends: 
+    R (>= 2.10)

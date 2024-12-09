@@ -1,0 +1,13 @@
+getwd()
+
+genfam(country = "UG",from = 3,to = 9,inst = "P")
+?.onAttach
+
+ISO_CountCodes <- data("ISO_CountCodes")
+View(ISO_CountCodes)
+
+Sys.which("dplyr")
+?Sys.which
+
+devtools::load_all(getwd())
+devtools::check(getwd())
