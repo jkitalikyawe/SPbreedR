@@ -131,8 +131,9 @@ usethis::use_data(ISO_CountCodes,internal = TRUE)
 
 Sys.setenv("_R_CHECK_SYSTEM_CLOCK_" = 0)
 
-genfam <- function(country,year = format(Sys.Date(),"%Y"),from = 1, to = 1, inst = c("N","P")){
-  genFam <- vector("character",length(from:to))
+genTName <- function(country,year = format(Sys.Date(),"%Y"),location = character(),
+                     type = c("SN", "OT","PT","AT","ST","FT","CT"), inst = c("N","P"),
+                     trNumber = integer()){
   countCode <- if(is.element(country,ISO_CountCodes$countName)){
     "countName"
   } else if(is.element(country,ISO_CountCodes$iso2Code)){
@@ -144,13 +145,39 @@ genfam <- function(country,year = format(Sys.Date(),"%Y"),from = 1, to = 1, inst
     countCode,
     countName = paste0(
       ISO_CountCodes$iso2Code[ISO_CountCodes$countName == country],match.arg(inst), year,
-      stringr::str_pad(from:to,width = 5,side = "left",pad = 0)),
+      paste0(toupper(substr(location,start = 1,stop = 3)),"-"),match.arg(type),sprintf("%02.0f",trNumber)),
     iso2code = paste0(
       country,match.arg(inst), year,
-      stringr::str_pad(from:to,width = 5,side = "left",pad = 0)),
+      paste0(toupper(substr(location,start = 1,stop = 3)),"-"),match.arg(type),sprintf("%02.0f",trNumber)),
     iso3code = paste0(
       ISO_CountCodes$iso2Code[ISO_CountCodes$iso3Code == country],match.arg(inst), year,
-      stringr::str_pad(from:to,width = 5,side = "left",pad = 0)),
+      paste0(toupper(substr(location,start = 1,stop = 3)),"-"),match.arg(type),sprintf("%02.0f",trNumber)),
     error = stop(paste0(country," is not a recognized country"))
   )
 }
+
+edit(genTName,paste0(getwd(),"/","R","/","genTName.R"))
+
+
+genTName(
+  country = "Uganda",location = "Namulonge",type = "PT",inst = "P",trNumber = 2
+)
+genTName(
+  country = "Kenya",location = "Serere",type = "OT",inst = "P",trNumber = 1,year = 2023
+)
+genTName(
+  country = "Uganda",location = "Kapiti",type = "PT",inst = "P",trNumber = 2
+)
+genTName(
+  country = "Uganda",location = "Bulindi",type = "AT",inst = "P",trNumber = 3
+)
+
+prompt(
+  genTName,paste0(getwd(),"/","man","/","genTName.Rd")
+)
+
+Sys.Date()
+sprintf(fmt = "%04.0f",1)
+
+?sprintf
+
